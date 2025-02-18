@@ -31,7 +31,7 @@ router.post('/signup',async function(req,res){
 
     if(user){
       return res.status(411).json({
-         message:"Email already taken/ Incorrect Inputs"
+         message:"User Already Exists"
       })
     }
 
