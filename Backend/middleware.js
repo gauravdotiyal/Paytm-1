@@ -1,5 +1,5 @@
 const {JWT_SECRET} = require('./config');
-const jwt=require('jsonwebtoken')
+const jwt=require("jsonwebtoken")
 
 const authMiddleware=(req,res,next)=>{
     const authHeader=req.headers.authorization;
@@ -9,13 +9,16 @@ const authMiddleware=(req,res,next)=>{
         })
     }
 
-    const token=authHeader.split('')[1];
+    const token=authHeader.split(' ')[1];
+    // console.log(token);
+    // console.log(JWT_SECRET);
     
     try {
-        const decoded=jwt.verify(token,JWT_SECRET);
-        req.userId=decoded.userId;
+        const decoded=jwt.verify(token,JWT_SECRET); 
+        req.userId=decoded.userId; 
         next();
     } catch (error) {
+        // console.log(error);
         res.status(403).json({
             message:"Token not verified"
         })
@@ -26,3 +29,5 @@ const authMiddleware=(req,res,next)=>{
 module.exports={
     authMiddleware
 }
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2I0NWVmYmFjNTE4NWNmYmU2NmRiZGIiLCJpYXQiOjE3Mzk4NzQwNDN9.m8iMAqJA408ApO9cJdMUdU6ksvphubtefTrP18ga0cg   
