@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import axios from 'axios';
 
 const SendMoney = () => {
    const [searchParams]=useSearchParams();
    const id=searchParams.get("id");
    const name=searchParams.get("name");
    const [amount,setAmount]=useState(0);
+   const navigate=useNavigate()
 
 
   return (
@@ -24,7 +26,7 @@ const SendMoney = () => {
                   </div>
                   <div className='space-y-4 pt-4'>
                     <div className='space-y-2 pb-3'>
-                      <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70' for="amount">
+                      <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                           Amount (in Rs)
                       </label>
                       <input onChange={(e)=>{
@@ -36,8 +38,8 @@ const SendMoney = () => {
                        placeholder='Enter Amount'
                       /> 
                     </div>
-                    <button onClick={()=>{
-                        axios.post("http://localhost:3000/api/v1/account/transfer",{
+                    <button onClick={async()=>{
+                          await axios.post("http://localhost:3000/api/v1/account/transfer",{
                           to:id,
                           amount
                         },{
@@ -45,7 +47,8 @@ const SendMoney = () => {
                             Authorization:"Bearer " + localStorage.getItem("token")
                           }
                         })
-                    }}  className='justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white '  >Initiate Transfer</button>
+                        navigate("/dashboard")
+                    }}  className='justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white cursor-pointer'  >Initiate Transfer</button>
                   </div>
                 </div>
            </div>

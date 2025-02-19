@@ -7,13 +7,19 @@ const Users = () => {
     const [users,setUsers]=useState([]);
     const [filter,setFilter]=useState("")
     
-    useEffect(()=>{
-        axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter)
-        .then(response=>{
+    useEffect(() => {
+        const fetchUsers = async () => {
+          try {
+            const response = await axios.get(`http://localhost:3000/api/v1/user/bulk?filter=${filter}`);
             setUsers(response.data.user);
-        })
-    },[filter])
-
+          } catch (error) {
+            // Add error handling if needed
+            console.error("Error fetching users:", error);
+          }
+        };
+      
+        fetchUsers();
+      }, [filter]);
   return (
     <>
         <div className='font-bold mt-6 text-lg'>
