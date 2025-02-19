@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import SubHeading from "../components/SubHeading";
 import InputBox from "../components/InputBox";
@@ -13,6 +13,13 @@ const Signup = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate=useNavigate();
+
+  useEffect(()=>{
+    const userToken=localStorage.getItem("token");
+    if(userToken){
+      navigate("/dashboard");
+    }
+  })
 
  
   return (

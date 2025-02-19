@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import SubHeading from "../components/SubHeading";
 import InputBox from "../components/InputBox";
@@ -11,6 +11,13 @@ const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("token");
+    if (userToken) {
+      navigate("/dashboard");
+    }
+  });
 
   return (
     <div className="bg-slate-300 flex h-screen justify-center">
@@ -34,7 +41,7 @@ const Signin = () => {
             }}
           />
           <div className="pt-4">
-            <Button 
+            <Button
               onClick={async () => {
                 const response = await axios.post(
                   "http://localhost:3000/api/v1/user/signin",
