@@ -5,12 +5,15 @@ import InputBox from "../components/InputBox";
 import Button from "../components/Button";
 import BottomWarning from "./BottomWarning";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const navigate=useNavigate();
+
  
   return (
     <div className="bg-slate-300 flex h-screen justify-center">
@@ -56,7 +59,8 @@ const Signup = () => {
         lastName,
         password,
       }); 
-      localStorage.setItem("token",response.data.token)
+      localStorage.setItem("token",response.data.token) 
+      navigate("/dashboard")
   }}
   label={"Register"}
 ></Button>

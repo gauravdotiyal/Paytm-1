@@ -7,7 +7,7 @@ import BottomWarning from "./BottomWarning";
 import axios from 'axios'
 
 const Signin = () => {
-   const [email,setEmail]=useState("");
+   const [username,setUsername]=useState("");
    const [password,setPassword]=useState("");
 
   return (
@@ -21,7 +21,7 @@ const Signin = () => {
             label={"Email"}
             placeholder={"Email"}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setUsername(e.target.value);
             }}
           />
           <InputBox
@@ -31,9 +31,14 @@ const Signin = () => {
               setPassword(e.target.value); 
             }}
           /> 
-          {/* <div className="pt-4">
-            <Button label={"Sing In"}></Button>
-           </div> */}
+          <div className="pt-4">
+            <Button label={"Sing In"} onClick={()=>{
+              axios.post("http://localhost:3000/api/v1/user/signin",{
+                username,
+                password,
+              })
+            }}></Button>
+           </div>
         <BottomWarning label={"Don't Have an Account?"} buttonText={"Sign Up"} to={"/signup"}/>
         </div>
       </div>

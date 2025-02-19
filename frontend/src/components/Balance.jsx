@@ -6,7 +6,7 @@ const Balance = ({value}) => {
       <div className='font-bold text-lg'>
         Your Balance
       </div>
-      <div className='fond-semibold ml-4 text-lg'>
+      <div className='font-semibold ml-4 text-lg '>
         Rs. {value}
       </div>
     </div>
